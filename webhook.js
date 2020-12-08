@@ -16,7 +16,7 @@ const bot = new TelegramBot(TOKEN);
 
 // This informs the Telegram servers of the new webhook.
 bot.setWebHook(`${url}/bot${TOKEN}`);
-bot.sendMessage("196207259","ok");
+bot.sendMessage("196207259",bot.getMe());
 const app = express();
 
 // parse the updates to JSON
@@ -38,4 +38,3 @@ app.listen(port, () => {
 bot.on('message', msg => {
   bot.sendMessage(msg.chat.id, 'I am alive!');
 });
-bot.getMe()
