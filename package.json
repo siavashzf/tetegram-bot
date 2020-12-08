@@ -4,13 +4,12 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-
     "start": "node webhook.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-telegram-bot-api": "^0.50.0",
-    "express": "~4.16.1"
+    "express": "^4.16.4",
+    "node-telegram-bot-api": "^0.50.0"
   }
 }

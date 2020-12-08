@@ -1,36 +1,39 @@
-
 /**
- * This example demonstrates setting up webhook
- * on the Heroku platform.
+ * This example demonstrates setting up a webook, and receiving
+ * updates in your express app
  */
-
+/* eslint-disable no-console */
 
 const TOKEN = process.env.TELEGRAM_TOKEN || '1431997595:AAEzLI8bXQiZX-JHC6ESy4LHmQf2yTgOzDc';
-const TelegramBot = require('node-telegram-bot-api');
-const options = {
-  webHook: {
-    // Port to which you should bind is assigned to $PORT variable
-    // See: https://devcenter.heroku.com/articles/dynos#local-environment-variables
-    port: process.env.PORT
-    // you do NOT need to set up certificates since Heroku provides
-    // the SSL certs already (https://<app-name>.herokuapp.com)
-    // Also no need to pass IP because on Heroku you need to bind to 0.0.0.0
-  }
-};
-// Heroku routes from port :443 to $PORT
-// Add URL of your app to env variable or enable Dyno Metadata
-// to get this automatically
-// See: https://devcenter.heroku.com/articles/dyno-metadata
-const url = process.env.APP_URL || https://siavash-telegram-bot.herokuapp.com/:443';
-const bot = new TelegramBot(TOKEN, options);
+const url = 'https://siavash-telegram-bot.herokuapp.com/';
+const port = process.env.PORT;
 
+const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
+
+// No need to pass any parameters as we will handle the updates with Express
+const bot = new TelegramBot(TOKEN);
 
 // This informs the Telegram servers of the new webhook.
-// Note: we do not need to pass in the cert, as it already provided
 bot.setWebHook(`${url}/bot${TOKEN}`);
 
+const app = express();
+
+// parse the updates to JSON
+app.use(express.json());
+
+// We are receiving updates at the route below!
+app.post(`/bot${TOKEN}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
+// Start Express Server
+app.listen(port, () => {
+  console.log(`Express server is listening on ${port}`);
+});
 
 // Just to ping!
-bot.on('message', function onMessage(msg) {
-  bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
+bot.on('message', msg => {
+  bot.sendMessage(msg.chat.id, 'I am alive!');
 });
