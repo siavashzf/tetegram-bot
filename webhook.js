@@ -15,7 +15,7 @@ const express = require('express');
 const bot = new TelegramBot(TOKEN);
 
 // This informs the Telegram servers of the new webhook.
-bot.setWebHook(`${url}/bot${TOKEN}`);
+//bot.setWebHook(`${url}/bot${TOKEN}`);
 
 const app = express();
 
@@ -32,8 +32,15 @@ app.post(`/bot${TOKEN}`, (req, res) => {
 app.listen(port, () => {
   console.log(`Express server is listening on ${port}`);
 });
-
+let state=0;
 // Just to ping!
 bot.on('message', msg => {
+    if (state==0){bot.sendMessage(msg.chat.id, "0");
+    state=1;
+    }
+    else{
+        bot.sendMessage(msg.chat.id, "1");
+    state=0;
+    }
   bot.sendMessage(msg.chat.id, msg.text);
 });
