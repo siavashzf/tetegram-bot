@@ -35,12 +35,7 @@ app.listen(port, () => {
 let state=0;
 // Just to ping!
 
-
-
-
-bot.on('message', msg => {
-    if (state==0){
-        const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
         const uri = "mongodb+srv://siavash:Si@7257482@cluster0.oth6f.mongodb.net/telegram_bot?retryWrites=true&w=majority";
         const client = new MongoClient(uri, { useNewUrlParser: true });
         client.connect(err => {
@@ -54,6 +49,11 @@ bot.on('message', msg => {
           // perform actions on the collection object
             client.close();
         });
+
+
+bot.on('message', msg => {
+    if (state==0){
+        
             
     bot.sendMessage(msg.chat.id, "ok addd");
     state=1;
