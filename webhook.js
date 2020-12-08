@@ -5,7 +5,7 @@
 /* eslint-disable no-console */
 
 const TOKEN =  '1431997595:AAEzLI8bXQiZX-JHC6ESy4LHmQf2yTgOzDc' || process.env.TELEGRAM_TOKEN ;
-const url = 'https://siavash-telegram-bot.herokuapp.com/';
+const url = 'https://siavash-telegram-bot.herokuapp.com';
 const port = process.env.PORT;
 
 const TelegramBot = require('node-telegram-bot-api');
