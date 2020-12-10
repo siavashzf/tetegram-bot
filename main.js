@@ -43,3 +43,13 @@ mongoose.connect(dataBaseUrl,{useNewUrlParser:true,useUnifiedTopology:true}).the
 bot.on('message', msg => {
   bot.sendMessage(msg.chat.id, msg.text);
 });
+
+bot.onText(/\/start/, (msg) => {
+    
+  bot.sendMessage(msg.chat.id, "یک گزینه را انتخاب کنید", {
+  "reply_markup": {
+      "keyboard": [["💬ارسال پیام💬 ", "🖼ارسال تصویر🖼","🎥ارسال فیلم🎥"],   ["✏️تغییر نام کاربری"]]
+      }
+  });
+      
+  });
