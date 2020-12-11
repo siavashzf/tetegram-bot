@@ -46,8 +46,8 @@ bot.on('message', msg => {
     status.setStatus(msg.chat.id,2);
   }
   if(status.getStatus(msg.chat.id)==2){
-    bot.sendMessage(msg.chat.id,"username save");
-    status.setStatus(msg.chat.id,2);
+    bot.sendMessage(msg.chat.id,"username saveg");
+    status.setStatus(msg.chat.id,0);
   }
   
 });
