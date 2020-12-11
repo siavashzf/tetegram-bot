@@ -40,8 +40,7 @@ mongoose.connect(dataBaseUrl,{useNewUrlParser:true,useUnifiedTopology:true}).the
 
 // Just to ping!
 
-bot.on('message', msg => {
-
+bot.on('text', msg => {
   if(status.getStatus(msg.chat.id)==1){
     bot.sendMessage(msg.chat.id,"username saveg "+ msg.text);
     status.setStatus(msg.chat.id,0);
@@ -57,7 +56,7 @@ bot.onText(/\/start/, (msg) => {
   });
       
 });
-bot.onText(new RegExp(lang.sendText,land), (msg) => { 
+bot.onText(new RegExp(lang.sendText.land), (msg) => { 
   bot.sendMessage(msg.chat.id,"inter username");
   status.setStatus(msg.chat.id,1);
   
