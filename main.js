@@ -5,7 +5,7 @@ const dataBaseUrl = require("./config/key").dataBaseUrl;
 const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require("mongoose");
 const express = require('express');
-
+const status = require("./status")
 
 const port = process.env.PORT || 8080;
 
@@ -41,15 +41,28 @@ mongoose.connect(dataBaseUrl,{useNewUrlParser:true,useUnifiedTopology:true}).the
 // Just to ping!
 
 bot.on('message', msg => {
-  bot.sendMessage(msg.chat.id, msg.text);
+  if(status.getStatus(msg.chat.id)==1){
+    bot.sendMessage(msg.chat.id,"inter username");
+    status.setStatus(msg.chat.id,2);
+  }
+  if(status.getStatus(msg.chat.id)==2){
+    bot.sendMessage(msg.chat.id,"username save");
+    status.setStatus(msg.chat.id,2);
+  }
+  
 });
 
-bot.onText(/\/start/, (msg) => {
-    
+bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id, "یک گزینه را انتخاب کنید", {
   "reply_markup": {
       "keyboard": [["💬ارسال پیام💬 ", "🖼ارسال تصویر🖼","🎥ارسال فیلم🎥"],   ["✏️تغییر نام کاربری"]]
       }
   });
       
-  });
+});
+bot.onText(/✏️تغییر نام کاربری/, (msg) => { 
+  bot.sendMessage(msg.chat.id,"selected");
+  status.setStatus(msg.chat.id,1);
+      
+});
+

@@ -11,10 +11,6 @@ const userSchima= new mongoose.Schema({
         type:String,
         required:true,
         unique:true
-    },
-    status:{
-        type:Number,
-        required:true,
     }
 });
 const User= mongoose.model("User",userSchima);
