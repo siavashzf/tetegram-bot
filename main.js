@@ -6,7 +6,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require("mongoose");
 const express = require('express');
 const status = require("./status")
-
+const lang =require('./config/lang')
 const port = process.env.PORT || 8080;
 
 
@@ -41,12 +41,9 @@ mongoose.connect(dataBaseUrl,{useNewUrlParser:true,useUnifiedTopology:true}).the
 // Just to ping!
 
 bot.on('message', msg => {
+
   if(status.getStatus(msg.chat.id)==1){
-    bot.sendMessage(msg.chat.id,"inter username");
-    status.setStatus(msg.chat.id,2);
-  }
-  else if(status.getStatus(msg.chat.id)==2){
-    bot.sendMessage(msg.chat.id,"username saveg");
+    bot.sendMessage(msg.chat.id,"username saveg"+msg.text);
     status.setStatus(msg.chat.id,0);
   }
   
@@ -55,13 +52,13 @@ bot.on('message', msg => {
 bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id, "یک گزینه را انتخاب کنید", {
   "reply_markup": {
-      "keyboard": [["💬ارسال پیام💬 ", "🖼ارسال تصویر🖼","🎥ارسال فیلم🎥"],   ["✏️تغییر نام کاربری"]]
+      "keyboard": [[lang.sendText,land.sendPic ,lang.sendVideo],[lang.changeUsername]]
       }
   });
       
 });
-bot.onText(/✏️تغییر نام کاربری/, (msg) => { 
-  bot.sendMessage(msg.chat.id,"selected");
+bot.onText(lang.changeUsername, (msg) => { 
+  bot.sendMessage(msg.chat.id,"inter username");
   status.setStatus(msg.chat.id,1);
       
 });
