@@ -56,7 +56,7 @@ bot.onText(/\/start/, (msg) => {
   });
       
 });
-bot.onText(new RegExp(lang.sendText.land), (msg) => { 
+bot.onText(new RegExp(lang.sendText), (msg) => { 
   bot.sendMessage(msg.chat.id,"inter username");
   status.setStatus(msg.chat.id,1);
   
