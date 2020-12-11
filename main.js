@@ -43,23 +43,23 @@ mongoose.connect(dataBaseUrl,{useNewUrlParser:true,useUnifiedTopology:true}).the
 bot.on('message', msg => {
 
   if(status.getStatus(msg.chat.id)==1){
-    bot.sendMessage(msg.chat.id,"username saveg"+msg.text);
+    bot.sendMessage(msg.chat.id,"username saveg "+ msg.text);
     status.setStatus(msg.chat.id,0);
   }
   
 });
 
 bot.onText(/\/start/, (msg) => { 
-  bot.sendMessage(msg.chat.id, "یک گزینه را انتخاب کنید", {
+  bot.sendMessage(msg.chat.id, lang.selectOption, {
   "reply_markup": {
       "keyboard": [[lang.sendText,land.sendPic ,lang.sendVideo],[lang.changeUsername]]
       }
   });
       
 });
-bot.onText(lang.changeUsername, (msg) => { 
+bot.onText(new RegExp(lang.sendText,land), (msg) => { 
   bot.sendMessage(msg.chat.id,"inter username");
   status.setStatus(msg.chat.id,1);
-      
+  
 });
 
