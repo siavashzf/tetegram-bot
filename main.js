@@ -24,9 +24,6 @@ app.listen(port, () => {
 
 
 
-
-
-
 bot.on('text', msg => {
   
 });
