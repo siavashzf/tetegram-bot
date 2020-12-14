@@ -33,7 +33,8 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.on("callback_query",(msg)=>{
-  if(msg.message.callback_data=="A_query"){
-    bot.sendMessage(msg.chat.id,"call back resiv")
-  }
+ 
+   
+    bot.sendMessage(msg.chat.id,callback_data)
+  
 })
