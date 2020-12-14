@@ -23,7 +23,7 @@ app.listen( port , () => {
 bot.on('text', msg => {
   let a=1;
 });
-app.
+
 bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
