@@ -1,9 +1,7 @@
 const token = require("./config/key").token;
-
-
 const TelegramBot = require('node-telegram-bot-api');
-
 const express = require('express');
+
 const port = process.env.PORT || 8080;
 const bot = new TelegramBot(token);
 
@@ -18,16 +16,14 @@ app.post(`/bot${token}`, (req, res) => {
 });
 
 // Start Express Server
-app.listen(port, () => {
+app.listen( port , () => {
   console.log(`Express server is listening on ${port}`);
 });
 
-
-
 bot.on('text', msg => {
-  
+  let a=1;
 });
-
+app.
 bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
@@ -36,3 +32,8 @@ bot.onText(/\/start/, (msg) => {
     });
 });
 
+bot.on("callback_query",(msg)=>{
+  if(msg.message.callback_data=="A_query"){
+    bot.sendMessage(msg.chat.id,"call back resiv")
+  }
+})
