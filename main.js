@@ -36,19 +36,19 @@ bot.onText(/\/start/, (msg) => {
 
 bot.on("callback_query",(msg)=>{
  
-  const data = msg.data.split(" ");
-  console.log("dataaaaaaaaa : ");
-  console.log(data);
-  if(data[0]=='allowedMessage'){
+  bot.copyMessage();
+  
+
+  if(msg.data=='allowedMessage'){
     bot.editMessageText("allowedMessage",{
       chat_id:msg.from.id,
       message_id:msg.message.message_id
     });
-    console.log(data[1]);
-    bot.forwardMessage("@mafia00703",msg.from.id,Number(data[1]));
+    
+    
   //send to chanel
   }
-  if(data[0]=='rejectMessage'){
+  if(msg.data=='rejectMessage'){
     bot.editMessageText("rejectedMessage",{
       chat_id:msg.from.id,
       message_id:msg.message.message_id
@@ -66,10 +66,12 @@ bot.on('text', msg => {
 
 bot.on('message', msg => {
 
-    bot.forwardMessage(config.adminChatId,msg.chat.id,msg.message_id)
-    let a="allowedMessage "+String(msg.message_id);
-    let b= "rejectMessage "+String(msg.message_id);
-    console.log(a);
+    
+    bot.copyMessage(config.adminChatId,msg.chat.id,msg.message_id);
+    let a = "allowedMessage";
+    let b = "rejectMessage";
+
+    
     bot.sendMessage(config.adminChatId,"reject or  allowed", {
       "reply_markup": {
           "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:a},
@@ -77,4 +79,6 @@ bot.on('message', msg => {
           }
       });
       bot.sendMessage(msg.chat.id,"send to admin for taiid");
+
+      
 });
