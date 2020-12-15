@@ -1,9 +1,9 @@
 const config = require("./config/key");
-const token=config.token;
+const token = config.token;
 const lang = require("./config/lang");
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
-const { token } = require("./config/key");
+
 
 const port = process.env.PORT || 8080;
 const bot = new TelegramBot(token);
