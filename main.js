@@ -36,10 +36,10 @@ bot.on("callback_query",(msg)=>{
  
   
   if(msg.data=='query_allowedMessage'){
-    bot.sendMessage(msg.from.id,lang.allowedMessage);
+    
     bot.editMessageText("masagee allowed",{
       chat_id:msg.from.id,
-      message_id:msg.from.id
+      message_id:msg.message_id
     });
   //send to chanel
   }
