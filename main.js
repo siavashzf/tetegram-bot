@@ -35,6 +35,6 @@ bot.onText(/\/start/, (msg) => {
 bot.on("callback_query",(msg)=>{
  
    
-    bot.sendMessage(msg.chat.id,callback_data)
+    bot.sendMessage(msg.from.id,"hi")
   
 })
