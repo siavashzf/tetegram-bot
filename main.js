@@ -60,5 +60,5 @@ bot.on('message', msg => {
                                 {text:lang.rejectMessage,callback_data:"query_rejectMessage"}]]
           }
       });
-
+      bot.sendMessage(msg.chat.id,"send to admin for taiid");
 });
