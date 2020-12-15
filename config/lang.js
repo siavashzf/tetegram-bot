@@ -9,4 +9,6 @@ module.exports={
     yourNewUsername:"نام کاربری جدید شما : ",
     wlecome:"سلام خوش اومدی برای شروع \n ",
     thisUserNameAlredyExistSendMyAndOder:'این نام کاربری قبلا ثبت شده است \nنام کاربری دیگری وارد کنید ',
+    allowedMessage:'تایید',
+    rejectMessage:'رد کردن'
 }

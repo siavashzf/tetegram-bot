@@ -1,6 +1,9 @@
-const token = require("./config/key").token;
+const config = require("./config/key");
+const token=config.token;
+const lang = require("./config/lang");
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
+const { token } = require("./config/key");
 
 const port = process.env.PORT || 8080;
 const bot = new TelegramBot(token);
@@ -20,21 +23,42 @@ app.listen( port , () => {
   console.log(`Express server is listening on ${port}`);
 });
 
-bot.on('text', msg => {
-  let a=1;
-});
-
 bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
-        "inline_keyboard": [[{text:'salam',callback_data:"A_query"}]]
+        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage"},
+                              {text:lang.rejectMessage,callback_data:"query_rejectMessage"}]]
         }
     });
 });
 
 bot.on("callback_query",(msg)=>{
  
-   
-    bot.sendMessage(msg.from.id,"hi")
+  
+  if(msg.data=='query_allowedMessage'){
+    bot.sendMessage(msg.from.id,lang.allowedMessage);
+    bot.deleteMessage(msg.from.id,msg.message.message_id);
+  //send to chanel
+  }
+  if(msg.data=='query_rejectMessage'){
+    //delet msg
+  }
   
 })
+
+bot.on('text', msg => {
+  let a=1;
+});
+
+
+bot.on('message', msg => {
+
+    bot.forwardMessage(config.adminChatId,msg.chat.id,msg.message_id)
+    bot.sendMessage(config.adminChatId,"reject or  allowed", {
+      "reply_markup": {
+          "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage"},
+                                {text:lang.rejectMessage,callback_data:"query_rejectMessage"}]]
+          }
+      });
+
+});
