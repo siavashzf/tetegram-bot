@@ -26,25 +26,30 @@ app.listen( port , () => {
 bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
-        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage"},
-                              {text:lang.rejectMessage,callback_data:"query_rejectMessage"}]]
+        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage "+msg.message_id},
+                              {text:lang.rejectMessage,callback_data:"query_rejectMessage"+msg.message_id}]]
         }
     });
 });
 
 bot.on("callback_query",(msg)=>{
  
+  const data = msg.data.split(" ");
   
-  if(msg.data=='query_allowedMessage'){
-    
-    
-    bot.editMessageText("masagee allowed",{
+  if(data[0]=='query_allowedMessage'){
+    bot.editMessageText("allowedMessage",{
       chat_id:msg.from.id,
       message_id:msg.message.message_id
     });
+    bot.forwardMessage("@mafia00703",msg.from.id,Number(data[1]));
   //send to chanel
   }
-  if(msg.data=='query_rejectMessage'){
+  if(data[0]=='query_rejectMessage'){
+    bot.editMessageText("rejectedMessage",{
+      chat_id:msg.from.id,
+      message_id:msg.message.message_id
+    });
+
     //delet msg
   }
   
