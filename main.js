@@ -37,7 +37,10 @@ bot.on("callback_query",(msg)=>{
   
   if(msg.data=='query_allowedMessage'){
     bot.sendMessage(msg.from.id,lang.allowedMessage);
-    bot.deleteMessage(msg.from.id,msg.message.message_id);
+    bot.editMessageText("masagee allowed",{
+      chat_id:msg.from.id,
+      message_id:msg.from.id
+    });
   //send to chanel
   }
   if(msg.data=='query_rejectMessage'){
