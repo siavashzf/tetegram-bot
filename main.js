@@ -41,6 +41,7 @@ bot.on("callback_query",(msg)=>{
       chat_id:msg.from.id,
       message_id:msg.message.message_id
     });
+    console.log(data[1]);
     bot.forwardMessage("@mafia00703",msg.from.id,Number(data[1]));
   //send to chanel
   }
