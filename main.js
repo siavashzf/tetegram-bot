@@ -23,8 +23,9 @@ app.listen( port , () => {
   console.log(`Express server is listening on ${port}`);
 });
 
-console.log(String(msg.message_id));
+
 bot.onText(/\/start/, (msg) => { 
+  console.log(String(msg.message_id));
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
         "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage "+String(msg.message_id)},
