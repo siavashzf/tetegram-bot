@@ -23,11 +23,12 @@ app.listen( port , () => {
   console.log(`Express server is listening on ${port}`);
 });
 
+console.log(String(msg.message_id));
 bot.onText(/\/start/, (msg) => { 
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
-        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage "+msg.message_id},
-                              {text:lang.rejectMessage,callback_data:"query_rejectMessage"+msg.message_id}]]
+        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage "+String(msg.message_id)},
+                              {text:lang.rejectMessage,callback_data:"query_rejectMessage"+String(msg.message_id)}]]
         }
     });
 });
