@@ -28,8 +28,8 @@ bot.onText(/\/start/, (msg) => {
   console.log(String(msg.message_id));
   bot.sendMessage(msg.chat.id,"test inline query", {
     "reply_markup": {
-        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage "+String(msg.message_id)},
-                              {text:lang.rejectMessage,callback_data:"query_rejectMessage"+String(msg.message_id)}]]
+        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"allowedMessage "+String(msg.message_id)},
+                              {text:lang.rejectMessage,callback_data:"rejectMessage"+String(msg.message_id)}]]
         }
     });
 });
@@ -38,7 +38,7 @@ bot.on("callback_query",(msg)=>{
  
   const data = msg.data.split(" ");
   
-  if(data[0]=='query_allowedMessage'){
+  if(data[0]=='allowedMessage'){
     bot.editMessageText("allowedMessage",{
       chat_id:msg.from.id,
       message_id:msg.message.message_id
@@ -47,7 +47,7 @@ bot.on("callback_query",(msg)=>{
     bot.forwardMessage("@mafia00703",msg.from.id,Number(data[1]));
   //send to chanel
   }
-  if(data[0]=='query_rejectMessage'){
+  if(data[0]=='rejectMessage'){
     bot.editMessageText("rejectedMessage",{
       chat_id:msg.from.id,
       message_id:msg.message.message_id
@@ -68,8 +68,8 @@ bot.on('message', msg => {
     bot.forwardMessage(config.adminChatId,msg.chat.id,msg.message_id)
     bot.sendMessage(config.adminChatId,"reject or  allowed", {
       "reply_markup": {
-          "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"query_allowedMessage"},
-                                {text:lang.rejectMessage,callback_data:"query_rejectMessage"}]]
+          "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"allowedMessage"+String(msg.message_id)},
+                                {text:lang.rejectMessage,callback_data:"rejectMessage"+String(msg.message_id)}]]
           }
       });
       bot.sendMessage(msg.chat.id,"send to admin for taiid");
