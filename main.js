@@ -68,8 +68,8 @@ bot.on('message', msg => {
     bot.forwardMessage(config.adminChatId,msg.chat.id,msg.message_id)
     bot.sendMessage(config.adminChatId,"reject or  allowed", {
       "reply_markup": {
-          "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"allowedMessage"+String(msg.message_id)},
-                                {text:lang.rejectMessage,callback_data:"rejectMessage"+String(msg.message_id)}]]
+          "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"allowedMessage "+String(msg.message_id)},
+                                {text:lang.rejectMessage,callback_data:"rejectMessage "+String(msg.message_id)}]]
           }
       });
       bot.sendMessage(msg.chat.id,"send to admin for taiid");
