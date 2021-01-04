@@ -4,11 +4,11 @@ const app = express();
 app.use(express.json());
 
 
-//processUpdateUncensordBot
-app.post(`/bot${token}`, (req, res) => {
-    const processUpdateUncensordBot = require("./uncensordBot");
-    processUpdateUncensordBot(req.body);
-    
+//processUpdateUncensoredBot
+const uncensoredBot = require("./uncensoredBot");
+uncensoredBot.
+app.post(`/bot${uncensoredBot.token}`, (req, res) => {
+    uncensordBot. processUpdate(req.body);
     res.sendStatus(200);
 });
 
