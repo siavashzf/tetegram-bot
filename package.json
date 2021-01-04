@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "upload": " git add . ; git commit -a -m \"fix bug\" ; git push  origin  "
+    "up": " git add . ; git commit -a -m \"fix bug\" ; git push  origin  "
   },
   "author": "",
   "license": "ISC",
