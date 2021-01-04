@@ -13,7 +13,7 @@ bot.onText(/\/start/, (msg) => {
 
 
   //if new user do this
-  bot.sendMessage(msg.chat.id,lang.interUsernam);
+  bot.sendMessage(msg.chat.id,lang.interUsername);
   status.setStatus(msg.chat.id,1);
 
   // const k11=new keyboard.KeyboardButton(lang.sendText);
@@ -38,7 +38,7 @@ bot.on("callback_query",(msg)=>{
 
 bot.on('message', msg => {
 
-  if(status.getStatus(msg.chat.id)==1){
+  if(status.getStatus(msg.chat.id) == 1){
     //changeUsername
 
     //changeUsername code
