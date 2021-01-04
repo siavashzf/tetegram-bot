@@ -2,17 +2,26 @@ const config = require("./config/key");
 const lang = require("./config/lang");
 const TelegramBot = require('node-telegram-bot-api');
 
+const keyboard= require("./keyboard")
+
 const token = config.token;
 const bot = new TelegramBot(token);
 
 
 bot.onText(/\/start/, (msg) => { 
-  console.log(String(msg.message_id));
-  bot.sendMessage(msg.chat.id,"test inline query", {
-    "reply_markup": {
-        "inline_keyboard": [[{text:lang.allowedMessage ,callback_data:"allowedMessage "+String(msg.message_id)},
-                              {text:lang.rejectMessage,callback_data:"rejectMessage"+String(msg.message_id)}]]
-        }
+  
+  const k11=new keyboard.KeyboardButton("salam");
+  const k12=new keyboard.KeyboardButton("siavash");
+  const k21=new keyboard.KeyboardButton("help");
+  const replyKeyboardMarkup = new keyboard.ReplyKeyboardMarkup();
+  replyKeyboardMarkup.addRow(k11,k12);
+  replyKeyboardMarkup.addRow(k21);
+
+  replyKeyboardMarkup.setOne_time_keyboard(true);
+  replyKeyboardMarkup.setResize_keyboard(true)
+  bot.sendMessage(msg.chat.id,lang.wlecome + lang.selectOption, {
+    "reply_markup": replyKeyboardMarkup.get()
+
     });
 });
 
@@ -54,4 +63,5 @@ const uncensoredBot = {
     
     token:token
 };
+
 module.exports = uncensoredBot;
