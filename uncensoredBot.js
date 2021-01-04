@@ -47,7 +47,7 @@ bot.on('message', msg => {
       bot.sendMessage(msg.chat.id,"send to admin for taiid");
 });
 
-const nncensoredBot = {
+const uncensoredBot = {
     processUpdate(param){ 
       bot.processUpdate(param)
     },
