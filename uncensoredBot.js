@@ -10,19 +10,23 @@ const bot = new TelegramBot(token);
 
 bot.onText(/\/start/, (msg) => { 
   
-  const k11=new keyboard.KeyboardButton("salam");
-  const k12=new keyboard.KeyboardButton("siavash");
-  const k21=new keyboard.KeyboardButton("help");
-  const replyKeyboardMarkup = new keyboard.ReplyKeyboardMarkup();
-  replyKeyboardMarkup.addRow(k11,k12);
-  replyKeyboardMarkup.addRow(k21);
+  const k11=new keyboard.KeyboardButton(lang.sendText);
+  const k12=new keyboard.KeyboardButton(lang.sendPic);
+  const k13=new keyboard.KeyboardButton(lang.sendVideo);
 
+  const k21=new keyboard.KeyboardButton(lang.changeUsername);
+
+  const replyKeyboardMarkup = new keyboard.ReplyKeyboardMarkup();
+  replyKeyboardMarkup.addRow(k11,k12,k13);
+  replyKeyboardMarkup.addRow(k21);
   replyKeyboardMarkup.setOne_time_keyboard(true);
+  replyKeyboardMarkup.setSelective(true);
   replyKeyboardMarkup.setResize_keyboard(true)
+
   bot.sendMessage(msg.chat.id,lang.wlecome + lang.selectOption, {
     "reply_markup": replyKeyboardMarkup.get()
-
     });
+
 });
 
 bot.on("callback_query",(msg)=>{
