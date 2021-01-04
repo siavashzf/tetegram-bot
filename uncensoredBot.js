@@ -48,7 +48,7 @@ bot.on("callback_query",(msg)=>{
 
 bot.on('message', msg => {
 
-  if(status.getStatus(msg.chat.id) == 1){
+  if(status.getStatus(msg.chat.id) == 1 && msg.text!=lang.comeback){
     //changeUsername
 
     //changeUsername code
