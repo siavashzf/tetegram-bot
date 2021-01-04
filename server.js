@@ -6,7 +6,6 @@ app.use(express.json());
 
 //processUpdateUncensoredBot
 const uncensoredBot = require("./uncensoredBot");
-uncensoredBot
 app.post(`/bot${uncensoredBot.token}`, (req, res) => {
     uncensordBot. processUpdate(req.body);
     res.sendStatus(200);
