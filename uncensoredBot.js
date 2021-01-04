@@ -1,11 +1,9 @@
-const token = config.token;
 const config = require("./config/key");
 const lang = require("./config/lang");
 const TelegramBot = require('node-telegram-bot-api');
+
+const token = config.token;
 const bot = new TelegramBot(token);
-
-
-
 
 
 bot.onText(/\/start/, (msg) => { 
@@ -48,9 +46,6 @@ bot.on('message', msg => {
       });
       bot.sendMessage(msg.chat.id,"send to admin for taiid");
 });
-
-
-
 
 const nncensoredBot = {
     processUpdate(param){ 
