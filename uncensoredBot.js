@@ -4,7 +4,7 @@ const status = require('./status');
 const TelegramBot = require('node-telegram-bot-api');
 const Db=require("./DataBase")
 const keyboard= require("./keyboard");
-const { db } = require("./model/User");
+
 
 const token = config.token;
 const bot = new TelegramBot(token);
