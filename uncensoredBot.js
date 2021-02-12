@@ -49,7 +49,7 @@ bot.on('message', msg => {
 
   }
  
-  if(status.getStatus(msg.chat.id) == 1 && msg.text!=lang.comeback){
+  else if(status.getStatus(msg.chat.id) == 1 && msg.text!=lang.comeback){
     //changeUsername
     if(!msg.text){
       bot.sendMessage(msg.chat.id,lang.plessSendMeText);
@@ -85,7 +85,7 @@ bot.on('message', msg => {
 
   
   // lang.sendPic status = 2
-  if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendPic){
+  else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendPic){
 
     comebackMessage(msg.chat.id,lang.sendYourPic);
     status.setStatus(msg.chat.id,2);
@@ -93,18 +93,18 @@ bot.on('message', msg => {
   }
   /////////////////////////////////////////////////////////////////
   // sendVideo status = 3
-  if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendVideo){
+  else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendVideo){
     comebackMessage(msg.chat.id,lang.sendYourVideo);
     status.setStatus(msg.chat.id,3);
   }
   //////////////////////////////////////////////////////////////////
   // sendText status = 4
-  if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendText){
+  else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendText){
     comebackMessage(msg.chat.id,lang.sendYourText);
     status.setStatus(msg.chat.id,4);
   }
 //////////////////////////////////////////////////////////////////////////
-  if(msg.text==lang.comeback){
+else if(msg.text==lang.comeback){
     const k11=new keyboard.KeyboardButton(lang.sendText);
     const k12=new keyboard.KeyboardButton(lang.sendPic);
     const k13=new keyboard.KeyboardButton(lang.sendVideo);
