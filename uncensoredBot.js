@@ -23,15 +23,16 @@ const comebackMessage=(chatid,text)=>{
 bot.onText(/\/start/, (msg) => { 
 
 
-  Db.getUserName(msg.chat.id).then((userName)=>{
+  Db.getUserName(msg.chat.id)
+  .then((userName)=>{
     bot.sendMessage(msg.chat.id,lang.wlecome+String(userName));
   })
-  .then(()=>{
+  .catch(()=>{
     Db.createNewUser(msg.chat.id,String(msg.chat.id)).then((user)=>{
       bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
     })
     .catch((err)=>{console.log(err)});
-  }).catch((err)=>{console.log(err)});
+  });
   
 
 });
