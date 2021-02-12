@@ -57,7 +57,7 @@ bot.on('message', msg => {
     }
     Db.changeUserName(msg.chat.id,msg.text)
     .then(()=>{
-        bot.sendMessage(msg.chat.id,lang.changeUsernameSusecfull+" "+msg.text);
+        bot.sendMessage(msg.text+" : "+msg.chat.id,lang.changeUsernameSusecfull);
         status.setStatus(msg.chat.id,0)
         const k11=new keyboard.KeyboardButton(lang.sendText);
         const k12=new keyboard.KeyboardButton(lang.sendPic);
