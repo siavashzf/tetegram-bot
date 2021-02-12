@@ -31,7 +31,7 @@ bot.onText(/\/start/, (msg) => {
       bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
     })
     .catch((err)=>{console.log(err)});
-  });
+  }).catch((err)=>{console.log(err)});
   
 
 });
