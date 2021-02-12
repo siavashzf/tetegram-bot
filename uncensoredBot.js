@@ -30,8 +30,9 @@ bot.onText(/\/start/, (msg) => {
     Db.createNewUser(msg.chat.id,String(msg.chat.id)).then((user)=>{
       bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
     })
+    .catch((err)=>{console.log(err)});
   });
-  bot.sendMessage(msg.chat.id,lang.wlecome+String(msg.chat.id));
+  
 
 });
 
