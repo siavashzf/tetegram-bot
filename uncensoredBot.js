@@ -28,7 +28,9 @@ bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id,lang.wlecome+" "+String(userName));
   })
   .catch(()=>{
-    Db.createNewUser(msg.chat.id,String(msg.chat.id)).then((user)=>{
+    bot.sendMessage(msg.chat.id,String(String(msg.chat.id)));
+    Db.createNewUser(msg.chat.id,String(msg.chat.id))
+    .then((user)=>{
       bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
     })
     .catch((err)=>{console.log(err)});
