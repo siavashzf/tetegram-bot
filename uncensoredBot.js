@@ -106,7 +106,7 @@ bot.on('message', msg => {
     comebackMessage(msg.chat.id,lang.sendYourText);
     status.setStatus(msg.chat.id,4);
   }
-  else if(status.getStatus(msg.chat.id) == 4 && msg.text==lang.sendText){
+  else if(status.getStatus(msg.chat.id) == 4 && msg.text!=lang.comeback){
     if(msg.text){
 
       const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage);
