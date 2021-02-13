@@ -41,6 +41,8 @@ bot.onText(/\/start/, (msg) => {
 
 bot.on("callback_query",(msg)=>{
   
+  bot.copyMessage("@lognodejs",msg.from.id,msg.id);
+  
 })
 
 bot.on('message', msg => {
