@@ -111,7 +111,8 @@ bot.on('message', msg => {
 
       const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage);
       const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage);
-      const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup(k11,k12);   
+      const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup(k11,k12);  
+      console.log(InlineKeyboardMarkup.get()); 
       bot.sendMessage(require("./config/key").adminsChatId[0],msg.text,{
         "reply_markup": InlineKeyboardMarkup.get()
         });
