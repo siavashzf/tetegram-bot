@@ -96,7 +96,7 @@ bot.on('message', msg => {
     comebackMessage(msg.chat.id,lang.sendYourPic);
     status.setStatus(msg.chat.id,2);
   }
-  else if(status.getStatus(msg.chat.id) == 3 && msg.text!=lang.comeback){
+  else if(status.getStatus(msg.chat.id) == 2 && msg.text!=lang.comeback){
     if (msg.photo){
       const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"aa");
       const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"bb");
