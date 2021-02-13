@@ -5,7 +5,7 @@ class InlineKeyboardMarkup{
     constructor(){
         this.mainArry = new Array();
         this.InlineKeyboardMarkup={
-            keyboard:1,
+            inline_keyboard:1,
         }
     }
     /**
