@@ -152,7 +152,7 @@ bot.on('message', msg => {
   }
 //////////////////////////////////////////////////////////////////////////
 else if(msg.text==lang.comeback){
-    homePage();
+    homePage(msg.chat.id);
     status.setStatus(msg.chat.id,0);
   }
 
