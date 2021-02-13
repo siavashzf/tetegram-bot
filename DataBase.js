@@ -9,7 +9,7 @@ const User = require("./model/User")
 const Db = {
     connect: async(uri)=>{
         try {
-           let ddd = await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true});
+           let ddd = await mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false});
                 console.log("conected");
                 return ddd;
         } catch (error) {
