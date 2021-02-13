@@ -31,7 +31,7 @@ const homePage=(chatid)=>{
   replyKeyboardMarkup.setSelective(true);
   replyKeyboardMarkup.setResize_keyboard(true)
 
-  bot.sendMessage(chat.id,lang.selectOption, {
+  bot.sendMessage(chatid,lang.selectOption, {
     "reply_markup": replyKeyboardMarkup.get()
     });
 }
