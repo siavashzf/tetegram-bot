@@ -31,7 +31,7 @@ const homePage=(chatid)=>{
   replyKeyboardMarkup.setSelective(true);
   replyKeyboardMarkup.setResize_keyboard(true)
 
-  bot.sendMessage(msg.chat.id,lang.selectOption, {
+  bot.sendMessage(chat.id,lang.selectOption, {
     "reply_markup": replyKeyboardMarkup.get()
     });
 }
@@ -77,20 +77,8 @@ bot.on('message', msg => {
     Db.changeUserName(msg.chat.id,msg.text)
     .then(()=>{
         bot.sendMessage(msg.chat.id,lang.changeUsernameSusecfull+"\n"+msg.text);
-        status.setStatus(msg.chat.id,0)
-        const k11=new keyboard.KeyboardButton(lang.sendText);
-        const k12=new keyboard.KeyboardButton(lang.sendPic);
-        const k13=new keyboard.KeyboardButton(lang.sendVideo);
-        const k21=new keyboard.KeyboardButton(lang.changeUsername);
-        const replyKeyboardMarkup = new keyboard.ReplyKeyboardMarkup();
-        replyKeyboardMarkup.addRow(k11,k12,k13);
-        replyKeyboardMarkup.addRow(k21);
-        replyKeyboardMarkup.setOne_time_keyboard(true);
-        replyKeyboardMarkup.setSelective(true);
-        replyKeyboardMarkup.setResize_keyboard(true)
-        bot.sendMessage(msg.chat.id,lang.selectOption, {
-          "reply_markup": replyKeyboardMarkup.get()
-          });
+        status.setStatus(msg.chat.id,0) ;
+        homePage(msg.chat.id);
     })
     .catch(()=>{
       bot.sendMessage(msg.chat.id,lang.thisUserNameAlredyExistSendMyAndOder);
@@ -136,11 +124,12 @@ bot.on('message', msg => {
           "reply_markup": InlineKeyboardMarkup.get()
           });
         bot.sendMessage(msg.chat.id,lang.afterAceept);
+        homePage(msg.chat.id);
       })
 
 
     }
-    homePage(msg.chat.id);
+    
     status.setStatus(msg.chat.id,0);
   }
 //////////////////////////////////////////////////////////////////////////
