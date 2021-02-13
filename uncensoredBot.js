@@ -19,24 +19,38 @@ const comebackMessage=(chatid,text)=>{
   bot.sendMessage(chatid,text, {"reply_markup":replyKeyboardMarkup.get()});
 }
 
+const homePage=(chatid)=>{
+  const k11=new keyboard.KeyboardButton(lang.sendText);
+  const k12=new keyboard.KeyboardButton(lang.sendPic);
+  const k13=new keyboard.KeyboardButton(lang.sendVideo);
+  const k21=new keyboard.KeyboardButton(lang.changeUsername);
+  const replyKeyboardMarkup = new keyboard.ReplyKeyboardMarkup();
+  replyKeyboardMarkup.addRow(k11,k12,k13);
+  replyKeyboardMarkup.addRow(k21);
+  replyKeyboardMarkup.setOne_time_keyboard(true);
+  replyKeyboardMarkup.setSelective(true);
+  replyKeyboardMarkup.setResize_keyboard(true)
+
+  bot.sendMessage(msg.chat.id,lang.selectOption, {
+    "reply_markup": replyKeyboardMarkup.get()
+    });
+}
 
 bot.onText(/\/start/, (msg) => { 
-
-
   Db.getUserName(msg.chat.id)
   .then((userName)=>{
     bot.sendMessage(msg.chat.id,lang.wlecome+" "+String(userName));
+    homePage(msg.chat.id);
   })
   .catch(()=>{
     bot.sendMessage(msg.chat.id,String(String(msg.chat.id)));
     Db.createNewUser(msg.chat.id,String(msg.chat.id))
     .then((user)=>{
       bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
+      homePage(msg.chat.id);
     })
     .catch((err)=>{console.log(err)});
   });
-  
-
 });
 
 bot.on("callback_query",(msg)=>{
@@ -132,27 +146,13 @@ bot.on('message', msg => {
   }
 //////////////////////////////////////////////////////////////////////////
 else if(msg.text==lang.comeback){
-    const k11=new keyboard.KeyboardButton(lang.sendText);
-    const k12=new keyboard.KeyboardButton(lang.sendPic);
-    const k13=new keyboard.KeyboardButton(lang.sendVideo);
-    const k21=new keyboard.KeyboardButton(lang.changeUsername);
-    const replyKeyboardMarkup = new keyboard.ReplyKeyboardMarkup();
-    replyKeyboardMarkup.addRow(k11,k12,k13);
-    replyKeyboardMarkup.addRow(k21);
-    replyKeyboardMarkup.setOne_time_keyboard(true);
-    replyKeyboardMarkup.setSelective(true);
-    replyKeyboardMarkup.setResize_keyboard(true)
-
-    bot.sendMessage(msg.chat.id,lang.selectOption, {
-      "reply_markup": replyKeyboardMarkup.get()
-      });
+    homePage();
 
     status.setStatus(msg.chat.id,0);
   }
 
 
 });
-
 
 
 
