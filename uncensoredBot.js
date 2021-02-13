@@ -40,7 +40,7 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.on("callback_query",(msg)=>{
-  msg.
+  
 })
 
 bot.on('message', msg => {
