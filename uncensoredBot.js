@@ -4,7 +4,7 @@ const status = require('./status');
 const TelegramBot = require('node-telegram-bot-api');
 const Db=require("./DataBase")
 const keyboard= require("./keyboard");
-
+const uuid=require('uuid');
 
 const token = config.token;
 const bot = new TelegramBot(token);
@@ -43,10 +43,10 @@ bot.onText(/\/start/, (msg) => {
     homePage(msg.chat.id);
   })
   .catch(()=>{
-    let str=msg.from.first_name+String(Number((Math.random()*100000)).toFixed(0));
+    let str=msg.from.first_name+String(uuid.v1());
     Db.createNewUser(msg.chat.id,str)
     .then((user)=>{
-      bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
+      bot.sendMessage(msg.chat.id,lang.wlecome+String());
       homePage(msg.chat.id);
     })
     .catch((err)=>{console.log(err)});
