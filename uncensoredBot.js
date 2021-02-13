@@ -40,8 +40,9 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.on("callback_query",(msg)=>{
-  bot.copyMessage("@lognodejs",msg.from.id,msg.message.message_id);
+  bot.copyMessage(config.chanelUsername,msg.from.id,msg.message.message_id);
   bot.answerCallbackQuery({callback_query_id:msg.id,show_alert:"true"});
+  bot.deleteMessage(msg.from.id,msg.message.message_id);
   
 })
 
@@ -116,10 +117,14 @@ bot.on('message', msg => {
       const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
       InlineKeyboardMarkup.addRow(k11,k12)
       
-      bot.sendMessage(require("./config/key").adminsChatId[0],msg.text,{
-        "reply_markup": InlineKeyboardMarkup.get()
-        });
-      bot.sendMessage(msg.chat.id,lang.afterAceept);
+      Db.getUserName(msg.chat.id).then(userName=>{
+        let str=msg.text+'\n-| '+userName+" |-\n"+config.chanelUsername;
+        bot.sendMessage(require("./config/key").adminsChatId[0],str,{
+          "reply_markup": InlineKeyboardMarkup.get()
+          });
+        bot.sendMessage(msg.chat.id,lang.afterAceept);
+      })
+
 
     }
 
