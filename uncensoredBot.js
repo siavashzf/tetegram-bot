@@ -46,7 +46,7 @@ bot.onText(/\/start/, (msg) => {
     let str=msg.from.first_name+String(msg.chat.id);
     Db.createNewUser(msg.chat.id,str)
     .then((user)=>{
-      bot.sendMessage(msg.chat.id,lang.wlecome+String());
+      bot.sendMessage(msg.chat.id,lang.wlecome + str);
       homePage(msg.chat.id);
     })
     .catch((err)=>{console.log(err)});
@@ -68,7 +68,6 @@ bot.on('message', msg => {
     status.setStatus(msg.chat.id,1);
 
   }
- 
   else if(status.getStatus(msg.chat.id) == 1 && msg.text!=lang.comeback){
     //changeUsername
     if(!msg.text){
@@ -94,16 +93,37 @@ bot.on('message', msg => {
   
   // lang.sendPic status = 2
   else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendPic){
-
     comebackMessage(msg.chat.id,lang.sendYourPic);
     status.setStatus(msg.chat.id,2);
+  }
+  else if(status.getStatus(msg.chat.id) == 3 && msg.text!=lang.comeback){
+    if (msg.photo){
+      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"aa");
+      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"bb");
+      const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
+      InlineKeyboardMarkup.addRow(k11,k12)
 
+      Db.getUserName(msg.chat.id).then(userName=>{
+        let str='\n-| '+userName+" |-\n"+config.chanelUsername;
+        bot.sendPhoto(require("./config/key").adminsChatId[0],msg.photo[0].file_id,{
+          caption:str,
+          "reply_markup": InlineKeyboardMarkup.get()
+          });
+        bot.sendMessage(msg.chat.id,lang.afterAceept);
+        homePage(msg.chat.id);
+      })
+    }
+    status.setStatus(msg.chat.id,0);
   }
   /////////////////////////////////////////////////////////////////
   // sendVideo status = 3
   else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendVideo){
     comebackMessage(msg.chat.id,lang.sendYourVideo);
     status.setStatus(msg.chat.id,3);
+  }
+  else if(status.getStatus(msg.chat.id) == 3 && msg.text!=lang.comeback){
+
+    status.setStatus(msg.chat.id,0);
   }
   //////////////////////////////////////////////////////////////////
   // sendText status = 4
@@ -127,16 +147,12 @@ bot.on('message', msg => {
         bot.sendMessage(msg.chat.id,lang.afterAceept);
         homePage(msg.chat.id);
       })
-
-
     }
-    
     status.setStatus(msg.chat.id,0);
   }
 //////////////////////////////////////////////////////////////////////////
 else if(msg.text==lang.comeback){
     homePage();
-
     status.setStatus(msg.chat.id,0);
   }
 
