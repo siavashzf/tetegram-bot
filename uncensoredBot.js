@@ -141,7 +141,7 @@ bot.on('message', msg => {
 
 
     }
-
+    homePage(msg.chat.id);
     status.setStatus(msg.chat.id,0);
   }
 //////////////////////////////////////////////////////////////////////////
