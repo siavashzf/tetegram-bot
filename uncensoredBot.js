@@ -43,7 +43,7 @@ bot.onText(/\/start/, (msg) => {
     homePage(msg.chat.id);
   })
   .catch(()=>{
-    let str=msg.from.first_name+String((Math.random()*1000));
+    let str=msg.from.first_name+String(Number((Math.random()*100000)).toFixed(0));
     Db.createNewUser(msg.chat.id,str)
     .then((user)=>{
       bot.sendMessage(msg.chat.id,lang.wlecome+String(user.userName));
