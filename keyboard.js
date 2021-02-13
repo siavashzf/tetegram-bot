@@ -1,16 +1,46 @@
 
-InlineKeyboardMarkup={
-    inline_keyboard:''
+
+
+class InlineKeyboardMarkup{
+    constructor(){
+        this.mainArry = new Array();
+        this.InlineKeyboardMarkup={
+            keyboard:1,
+        }
+    }
+    /**
+     * @param {KeyboardButton} keyboard 
+    */
+    addRow(...keyboard){
+        const temp=new Array();
+        for (let i = 0; i < keyboard.length; i++) {
+            temp.push(keyboard[i].get())
+        }
+        this.mainArry.push(temp);
+        
+    }
+
+    get(){
+        this.InlineKeyboardMarkup["inline_keyboard"] = this.mainArry;
+        return this.InlineKeyboardMarkup;
+    }
+
 }
 
-InlineKeyboardButton={
-    text:'',
-    url:'',
-    callback_data:''
+
+class InlineKeyboardButton{
+    constructor(text, callback_data=false ,url=false){
+        this.InlineKeyboardButton={};
+        this.InlineKeyboardButton["text"]=text;
+        if(url !=false)
+            this.InlineKeyboardButton["url"]=url;
+        if (callback_data != false)
+            this.InlineKeyboardButton["callback_data"]=callback_data;
+    }
+    get(){
+        return this.InlineKeyboardButton;
+    }
 }
-
-
-
 
 
 class KeyboardButton{
@@ -58,5 +88,10 @@ class ReplyKeyboardMarkup{
 
 }
 
+
+
 module.exports.KeyboardButton = KeyboardButton;
 module.exports.ReplyKeyboardMarkup = ReplyKeyboardMarkup;
+
+module.exports.InlineKeyboardButton = InlineKeyboardButton;
+module.exports.InlineKeyboardMarkup = InlineKeyboardMarkup;

@@ -40,6 +40,7 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.on("callback_query",(msg)=>{
+  msg.
 })
 
 bot.on('message', msg => {
@@ -104,6 +105,21 @@ bot.on('message', msg => {
   else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendText){
     comebackMessage(msg.chat.id,lang.sendYourText);
     status.setStatus(msg.chat.id,4);
+  }
+  else if(status.getStatus(msg.chat.id) == 4 && msg.text==lang.sendText){
+    if(msg.text){
+
+      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage);
+      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage);
+      const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup(k11,k12);   
+      bot.sendMessage(require("./config/key").adminsChatId[0],msg.text{
+        "reply_markup": InlineKeyboardMarkup.get()
+        });
+      bot.sendMessage(msg.chat.id,lang.afterAceept);
+
+    }
+
+    status.setStatus(msg.chat.id,0);
   }
 //////////////////////////////////////////////////////////////////////////
 else if(msg.text==lang.comeback){
