@@ -109,8 +109,8 @@ bot.on('message', msg => {
   else if(status.getStatus(msg.chat.id) == 4 && msg.text!=lang.comeback){
     if(msg.text){
 
-      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage);
-      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage);
+      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"aa");
+      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"bb");
       const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
       InlineKeyboardMarkup.addRow(k11,k12)
       

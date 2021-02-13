@@ -8,9 +8,7 @@ class InlineKeyboardMarkup{
             inline_keyboard:1,
         }
     }
-    /**
-     * @param {KeyboardButton} keyboard 
-    */
+
     addRow(...keyboard){
         const temp=new Array();
         for (let i = 0; i < keyboard.length; i++) {
@@ -87,6 +85,8 @@ class ReplyKeyboardMarkup{
     }
 
 }
+
+
 
 
 
