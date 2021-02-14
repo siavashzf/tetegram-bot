@@ -54,9 +54,19 @@ bot.onText(/\/start/, (msg) => {
 });
 
 bot.on("callback_query",(msg)=>{
-  bot.copyMessage(config.chanelUsername,msg.from.id,msg.message.message_id);
+  let data = msg.data.split(" ");
+
+  if(data[0]=== "allowed"){
+    bot.copyMessage(config.chanelUsername,msg.from.id,msg.message.message_id);
+    bot.answerCallbackQuery({callback_query_id:msg.id,show_alert:"true"});
+    bot.deleteMessage(msg.from.id,msg.message.message_id);
+  }
+ else{
   bot.answerCallbackQuery({callback_query_id:msg.id,show_alert:"true"});
   bot.deleteMessage(msg.from.id,msg.message.message_id);
+  bot.sendMessage(Number(data[1]),lang.yourMessageSendToChanel)
+ }
+
   
 })
 
@@ -98,23 +108,27 @@ bot.on('message', msg => {
   }
   else if(status.getStatus(msg.chat.id) == 2 && msg.text!=lang.comeback){
     if (msg.photo){
-      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"aa");
-      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"bb");
+      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"allowed " + String(msg.chat.id) );
+      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"reject " + String(msg.chat.id) );
       const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
       InlineKeyboardMarkup.addRow(k11,k12)
 
       Db.getUserName(msg.chat.id).then(userName=>{
+
         let str='\n-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendPhoto(require("./config/key").adminsChatId[0],msg.photo[0].file_id,{
-          caption:str,
+          caption:msg.caption+str,
           "reply_markup": InlineKeyboardMarkup.get()
           });
+
         bot.sendMessage(msg.chat.id,lang.afterAceept);
+
         homePage(msg.chat.id);
       })
     }
     status.setStatus(msg.chat.id,0);
   }
+  
   /////////////////////////////////////////////////////////////////
   // sendVideo status = 3
   else if(status.getStatus(msg.chat.id) == 0 && msg.text==lang.sendVideo){
@@ -133,12 +147,11 @@ bot.on('message', msg => {
   }
   else if(status.getStatus(msg.chat.id) == 4 && msg.text!=lang.comeback){
     if(msg.text){
-
       const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"aa");
       const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"bb");
       const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
-      InlineKeyboardMarkup.addRow(k11,k12)
-      
+      InlineKeyboardMarkup.addRow(k11,k12);
+
       Db.getUserName(msg.chat.id).then(userName=>{
         let str=msg.text+'\n-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendMessage(require("./config/key").adminsChatId[0],str,{
@@ -160,36 +173,10 @@ else if(msg.text==lang.comeback){
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const uncensoredBot = {
     processUpdate(param){ 
       bot.processUpdate(param)
     },
-    
     token:token
 };
 module.exports = uncensoredBot;
