@@ -60,11 +60,12 @@ bot.on("callback_query",(msg)=>{
     bot.copyMessage(config.chanelUsername,msg.from.id,msg.message.message_id);
     bot.answerCallbackQuery({callback_query_id:msg.id,show_alert:"true"});
     bot.deleteMessage(msg.from.id,msg.message.message_id);
+    bot.sendMessage(Number(data[1]),lang.yourMessageSendToChanel)
   }
  else{
-  bot.answerCallbackQuery({callback_query_id:msg.id,show_alert:"true"});
-  bot.deleteMessage(msg.from.id,msg.message.message_id);
-  bot.sendMessage(Number(data[1]),lang.yourMessageSendToChanel)
+    bot.answerCallbackQuery({callback_query_id:msg.id,show_alert:"true"});
+    bot.deleteMessage(msg.from.id,msg.message.message_id);
+    bot.sendMessage(Number(data[1]),lang.yourMessageDontSendToChanel)
  }
 
   
@@ -114,10 +115,13 @@ bot.on('message', msg => {
       InlineKeyboardMarkup.addRow(k11,k12)
 
       Db.getUserName(msg.chat.id).then(userName=>{
-
-        let str='\n-| '+userName+" |-\n"+config.chanelUsername;
+        let str;
+        if(msg.caption){
+          str=msg.caption;
+        }
+         str+='\n-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendPhoto(require("./config/key").adminsChatId[0],msg.photo[0].file_id,{
-          caption:msg.caption+str,
+          caption:str,
           "reply_markup": InlineKeyboardMarkup.get()
           });
 
@@ -147,8 +151,8 @@ bot.on('message', msg => {
   }
   else if(status.getStatus(msg.chat.id) == 4 && msg.text!=lang.comeback){
     if(msg.text){
-      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"aa");
-      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"bb");
+      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"allowed " + String(msg.chat.id) );
+      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"reject " + String(msg.chat.id) );
       const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
       InlineKeyboardMarkup.addRow(k11,k12);
 
