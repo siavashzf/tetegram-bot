@@ -143,7 +143,7 @@ bot.on('message', msg => {
   }
   else if(status.getStatus(msg.chat.id) == 3 && msg.text!=lang.comeback){
     if (msg.video){
-      console.log("we have video");
+      
       const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"allowed " + String(msg.chat.id) );
       const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"reject " + String(msg.chat.id) );
       const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
@@ -163,8 +163,6 @@ bot.on('message', msg => {
 
         homePage(msg.chat.id);
       })
-    }else{
-      console.log("we not have video");
     }
     
     status.setStatus(msg.chat.id,0);
