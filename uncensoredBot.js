@@ -147,8 +147,8 @@ bot.on('message', msg => {
       InlineKeyboardMarkup.addRow(k11,k12)
       Db.getUserName(msg.chat.id).then(userName=>{
         let str;
-        if(msg.caption){
-          str =String(msg.caption)+'\n';
+        if(msg.caption!=undefined){
+          str =String(msg.caption)+ "\n";
         }
          str+='-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendVideo(require("./config/key").adminsChatId[0],msg.video.file_id,{
