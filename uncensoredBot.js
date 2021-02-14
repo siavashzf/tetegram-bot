@@ -117,9 +117,11 @@ bot.on('message', msg => {
       Db.getUserName(msg.chat.id).then(userName=>{
         let str;
         if(msg.caption){
-          str ='\n'+String(msg.caption);
+          console.log(msg.caption);
+          str =String(msg.caption)+"\n";
         }
-         str+='-| '+userName+" |-\n"+config.chanelUsername;
+        console.log(msg.caption);
+        str+='-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendPhoto(require("./config/key").adminsChatId[0],msg.photo[0].file_id,{
           caption:str,
           "reply_markup": InlineKeyboardMarkup.get()
@@ -147,10 +149,12 @@ bot.on('message', msg => {
       InlineKeyboardMarkup.addRow(k11,k12)
       Db.getUserName(msg.chat.id).then(userName=>{
         let str;
-        if(msg.caption!=undefined){
-          str =String(msg.caption)+ "\n";
+        if(msg.caption){
+          console.log(msg.caption);
+          str =String(msg.caption)+"\n";
         }
-         str+='-| '+userName+" |-\n"+config.chanelUsername;
+        console.log(msg.caption);
+        str+='-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendVideo(require("./config/key").adminsChatId[0],msg.video.file_id,{
           caption:str,
           "reply_markup": InlineKeyboardMarkup.get()
