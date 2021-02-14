@@ -117,9 +117,9 @@ bot.on('message', msg => {
       Db.getUserName(msg.chat.id).then(userName=>{
         let str;
         if(msg.caption){
-          str=msg.caption;
+          str ='\n'+String(msg.caption);
         }
-         str+='\n-| '+userName+" |-\n"+config.chanelUsername;
+         str+='-| '+userName+" |-\n"+config.chanelUsername;
         bot.sendPhoto(require("./config/key").adminsChatId[0],msg.photo[0].file_id,{
           caption:str,
           "reply_markup": InlineKeyboardMarkup.get()
@@ -140,7 +140,27 @@ bot.on('message', msg => {
     status.setStatus(msg.chat.id,3);
   }
   else if(status.getStatus(msg.chat.id) == 3 && msg.text!=lang.comeback){
+    if (msg.video){
+      const k11=new keyboard.InlineKeyboardButton(lang.allowedMessage,"allowed " + String(msg.chat.id) );
+      const k12=new keyboard.InlineKeyboardButton(lang.rejectMessage,"reject " + String(msg.chat.id) );
+      const  InlineKeyboardMarkup= new keyboard.InlineKeyboardMarkup();  
+      InlineKeyboardMarkup.addRow(k11,k12)
+      Db.getUserName(msg.chat.id).then(userName=>{
+        let str;
+        if(msg.caption){
+          str =String(msg.caption)+'\n';
+        }
+         str+='-| '+userName+" |-\n"+config.chanelUsername;
+        bot.sendVideo(require("./config/key").adminsChatId[0],msg.video.file_id,{
+          caption:str,
+          "reply_markup": InlineKeyboardMarkup.get()
+          });
 
+        bot.sendMessage(msg.chat.id,lang.afterAceept);
+
+        homePage(msg.chat.id);
+      })
+    }
     status.setStatus(msg.chat.id,0);
   }
   //////////////////////////////////////////////////////////////////
